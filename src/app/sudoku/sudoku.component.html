@@ -1,0 +1,24 @@
+<div class="sudoku-board">
+  <div *ngFor="let row of board; let rowIndex = index" class="sudoku-row">
+    <input
+      *ngFor="let cell of row; let colIndex = index"
+      type="number"
+      [ngModel]="cell === 0 ? '' : cell"
+      (ngModelChange)="onInputChange(rowIndex, colIndex, $event)"
+      [disabled]="userInputs[rowIndex][colIndex] === 0 && cell !== 0"
+      class="sudoku-cell"
+      min="1"
+      max="9"
+      (keypress)="validateInput($event)"
+      [ngClass]="getCellClass(rowIndex, colIndex)"
+    />
+  </div>
+</div>
+<div class="controls">
+  <button (click)="solve()">Solve</button>
+  <button (click)="generatePuzzle()">New Puzzle</button>
+  <label>
+    Given Numbers:
+    <input type="number" [(ngModel)]="givenNumbers" min="17" max="81" />
+  </label>
+</div>

@@ -1,1 +1,126 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  background-color: #e0f7fa; /* Soft blue background */
+  color: #333; /* Text color */
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.app-title {
+  font-size: 2.5em;
+  color: #00796b; /* Complementary color */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.sudoku-board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 0;
+  max-width: 360px;
+  margin: 20px auto;
+  border: 2px solid #00796b; /* Complementary border color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 10px;
+}
+
+.sudoku-row {
+  display: contents;
+}
+
+.sudoku-cell {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  border: 1px solid #ddd;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  outline: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  -moz-appearance: textfield; /* Firefox */
+  border-radius: 4px;
+}
+
+.sudoku-cell::-webkit-outer-spin-button,
+.sudoku-cell::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Chrome, Safari, Edge, Opera */
+}
+
+.sudoku-cell:focus {
+  background-color: #b2ebf2;
+  border-color: #00796b;
+}
+
+.correct-cell {
+  background-color: #c8e6c9; /* Soft green */
+  border-color: #a5d6a7;
+}
+
+.wrong-cell {
+  background-color: #ffcdd2; /* Soft red */
+  border-color: #ef9a9a;
+}
+
+.empty-cell {
+  background-color: transparent;
+}
+
+.given-cell {
+  background-color: #e0f2f1; /* Light teal */
+  border-color: #b2dfdb;
+}
+
+.right-border {
+  border-right: 2px solid #00796b; /* Complementary vertical separation lines */
+}
+
+.bottom-border {
+  border-bottom: 2px solid #00796b; /* Complementary horizontal separation lines */
+}
+
+.controls {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.controls button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  background-color: #00796b;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.controls button:hover {
+  background-color: #004d40;
+  transform: scale(1.05);
+}
+
+.controls input {
+  width: 60px;
+  padding: 5px;
+  font-size: 16px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-left: 10px;
+  background-color: #fff;
+  transition: border-color 0.3s;
+}
+
+.controls input:focus {
+  border-color: #00796b;
+}
