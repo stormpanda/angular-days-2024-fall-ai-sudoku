@@ -1,20 +1,38 @@
-<div class="sudoku-board">
-  <div
-    *ngFor="let row of board; let rowIndex = index; trackBy: trackByIndex"
-    class="sudoku-row"
-  >
-    <input
-      *ngFor="let cell of row; let colIndex = index; trackBy: trackByIndex"
-      type="number"
-      [ngModel]="cell === 0 ? '' : cell"
-      (ngModelChange)="onInputChange(rowIndex, colIndex, $event)"
-      [disabled]="userInputs[rowIndex][colIndex] === 0 && cell !== 0"
-      class="sudoku-cell"
-      min="1"
-      max="9"
-      (keypress)="validateInput($event)"
-      [ngClass]="getCellClass(rowIndex, colIndex)"
-    />
+<div class="sudoku-container">
+  <div class="sudoku-board">
+    <div
+      *ngFor="let row of board; let rowIndex = index; trackBy: trackByIndex"
+      class="sudoku-row"
+    >
+      <div
+        *ngFor="let cell of row; let colIndex = index; trackBy: trackByIndex"
+        class="sudoku-cell-wrapper"
+        (click)="selectCell(rowIndex, colIndex)"
+      >
+        <input
+          type="number"
+          [ngModel]="cell === 0 ? '' : cell"
+          (ngModelChange)="onInputChange(rowIndex, colIndex, $event)"
+          [disabled]="userInputs[rowIndex][colIndex] === 0 && cell !== 0"
+          class="sudoku-cell"
+          min="1"
+          max="9"
+          (keypress)="validateInput($event)"
+          [ngClass]="getCellClass(rowIndex, colIndex)"
+        />
+        <div class="notes" *ngIf="notes[rowIndex][colIndex].length > 0">
+          <span *ngFor="let note of notes[rowIndex][colIndex]">{{ note }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div [ngClass]="{ 'note-grid': true, disabled: !selectedCell }">
+    <div
+      *ngFor="let note of [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+      (click)="toggleNoteSelection(note)"
+    >
+      {{ note }}
+    </div>
   </div>
 </div>
 <div class="controls">

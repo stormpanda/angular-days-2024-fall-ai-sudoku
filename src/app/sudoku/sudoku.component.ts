@@ -1,4 +1,4 @@
-import { NgClass, NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
@@ -13,7 +13,7 @@ import {
   selector: 'app-sudoku',
   templateUrl: './sudoku.component.html',
   styleUrls: ['./sudoku.component.scss'],
-  imports: [NgFor, FormsModule, NgClass],
+  imports: [NgFor, FormsModule, NgClass, NgIf],
 })
 export class SudokuComponent {
   board: number[][] = createEmptyBoard();
@@ -21,8 +21,12 @@ export class SudokuComponent {
   userInputs: number[][] = createEmptyBoard();
   givenNumbers: number = 24;
 
+  selectedCell: { row: number; col: number } | null = null;
+  notes: number[][][] = [];
+
   constructor() {
     this.generatePuzzle();
+    this.initializeNotes();
   }
 
   generatePuzzle() {
@@ -67,6 +71,28 @@ export class SudokuComponent {
   solve() {
     this.board = this.solution.map((row) => row.slice()); // Copy the solution to the board
     this.userInputs = this.solution.map((row) => row.slice()); // Mark all cells as user inputs
+  }
+
+  selectCell(row: number, col: number): void {
+    this.selectedCell = { row, col };
+  }
+
+  initializeNotes(): void {
+    this.notes = Array.from({ length: 9 }, () =>
+      Array.from({ length: 9 }, () => [])
+    );
+  }
+
+  toggleNoteSelection(note: number): void {
+    if (this.selectedCell) {
+      const { row, col } = this.selectedCell;
+      const noteIndex = this.notes[row][col].indexOf(note);
+      if (noteIndex > -1) {
+        this.notes[row][col].splice(noteIndex, 1);
+      } else {
+        this.notes[row][col].push(note);
+      }
+    }
   }
 
   trackByIndex(index: number, obj: any): any {
