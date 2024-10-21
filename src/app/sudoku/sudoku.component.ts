@@ -68,4 +68,8 @@ export class SudokuComponent {
     this.board = this.solution.map((row) => row.slice()); // Copy the solution to the board
     this.userInputs = this.solution.map((row) => row.slice()); // Mark all cells as user inputs
   }
+
+  trackByIndex(index: number, obj: any): any {
+    return index;
+  }
 }
